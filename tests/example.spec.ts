@@ -150,7 +150,7 @@ test('Add CF:Role Collections', async ( {page}) => {
   await page.goto('https://emea.cockpit.btp.cloud.sap/cockpit/#/globalaccount/275320f9-4c26-4622-8728-b6f5196075f5/subaccount/13f4f274-4515-4c67-8274-cbde80a4e744/rolecollections');
   await page.locator('button:text("Accept all")').click();
 
-  const CodeJamRoleCollectionRow = await page.getByRole('row').filter({ hasText: 'CodeJam' }).locator('#__item9-__clone4-TypeCell')
+  const CodeJamRoleCollectionRow = await page.getByRole('row').filter({ hasText: 'CodeJam' }).locator("td").nth(6);
   await CodeJamRoleCollectionRow.waitFor({ state: 'visible' })
   await CodeJamRoleCollectionRow.click();
 
@@ -165,46 +165,62 @@ test('Add CF:Role Collections', async ( {page}) => {
   //Read emails from a file and paste them in the input field
   const filePath = './tests/lib/emails.txt'; // Replace with your file path
   const fileContent = fs.readFileSync(filePath, 'utf-8');
-  console.log(fileContent);
+  //console.log(fileContent);
   const lines = fileContent.split('\n').map(line => line.trim()).filter(line => line.length > 0);
 
   let index = 0;
 
   // Example: log each line
   for (const line of lines) {
-    console.log(line);
+    console.log("Processing user : " + line);
    
     const inputIDField = await page.locator('table#__xmlview3--rolecollectionsDetailUsersList-listUl td input').first();
     await inputIDField.waitFor({ state: 'visible' });
     await inputIDField.fill(line);
 
     if(index == 0){
-      const idpField = await page.locator('table#__input0-__clone15-popup-table-listUl tr').nth(1).first();
-      await idpField.waitFor({ state: 'visible' });
-      await idpField.click();
+      const idpField = await page.locator('table#__xmlview3--rolecollectionsDetailUsersList-listUl tr').nth(1).locator("td").nth(2).click();
+      await page.locator('ul[role="listbox"]').getByText('Default identity provider').nth(0).click();
+      // await dropdownValue.waitFor({ state: 'visible' });
+      // await dropdownValue.click();
+
+      await page.locator('table#__xmlview3--rolecollectionsDetailUsersList-listUl tr').nth(1).locator("#__input1-__clone15-inner").fill(line); // Simulate typing
+      
+      const SaveButton = await page.getByRole('button', { name: 'Save' });
+      await SaveButton.waitFor({ state: 'visible' });
+      await SaveButton.click();
+      console.log("Added user : " + line);
     }
     else{
-        await page.locator('#__select0-__clone15').click();
+        await page.locator('table#__xmlview3--rolecollectionsDetailUsersList-listUl tr').nth(1).locator("td").nth(2).click();
         const idpField = await page.locator('ul[role="listbox"] li:has-text("Default identity provider")').first();
         await idpField.waitFor({ state: 'visible' });
         await idpField.click();
 
-        const EmailField = await page.locator('#__input1-__clone15 #__input1-__clone15-inner');
+        const EmailField = await page.locator('table#__xmlview3--rolecollectionsDetailUsersList-listUl tr').nth(1).locator("td").nth(3).locator('input');
         await EmailField.waitFor({ state: 'visible' });
         await EmailField.fill(line);
-    }
 
-    const AddUserPlusButton = await page.getByRole('button', { name: 'Add a user' }).first();
-    await AddUserPlusButton.waitFor({ state: 'visible' });
-    await AddUserPlusButton.click();
+        const SaveButton = await page.getByRole('button', { name: 'Save' });
+        await SaveButton.waitFor({ state: 'visible' });
+        await SaveButton.click();
+        console.log("Added user : " + line);
+    }
+      const EditButton = await page.getByRole('button', { name: 'Edit' });
+      await EditButton.waitFor({ state: 'visible' });
+      await EditButton.click();
+      
+      // const AddUserPlusButton = await page.getByRole('button', { name: 'Add a user' }).first();
+      // await AddUserPlusButton.waitFor({ state: 'visible' });
+      // await AddUserPlusButton.click();
+
+    
 
     index++;
   }
 
 
-    const SaveButton = await page.getByRole('button', { name: 'Save' });
-    await SaveButton.waitFor({ state: 'visible' });
-    await SaveButton.click();
+   
 
 });
 
@@ -274,13 +290,11 @@ test('Create Users from Security > Users', async ( {page}) => {
     // Use type() to simulate real typing (fires all events)
     await page.locator(inputSelector).fill(line); // Simulate typing
     //await page.keyboard.press('Tab', { delay: 1000 }); // Move to the next field
-    console.log(line)
-    await page.waitForResponse('https://emea.cockpit.btp.cloud.sap/ajax/275320f9-4c26-4622-8728-b6f5196075f5/cf-eu10-004/a5a420d8-58c6-4820-ab11-90c7145da589/getShadowUsersCall/a5a420d8-58c6-4820-ab11-90c7145da589/'+line, { timeout: 2000 });
-
+    console.log(line);
+    await page.waitForResponse('https://emea.cockpit.btp.cloud.sap/ajax/275320f9-4c26-4622-8728-b6f5196075f5/cf-eu10-004/a5a420d8-58c6-4820-ab11-90c7145da589/getShadowUsersCall/a5a420d8-58c6-4820-ab11-90c7145da589/'+line, { timeout: 5000 });
     await page.locator(inputSelector).evaluate((el) => el.blur());
    
     // await page.locator(inputSelector).fill(line);
-
     //Manually dispatch input and change events
     await page.evaluate((selector) => {
       const input = document.querySelector(selector);
