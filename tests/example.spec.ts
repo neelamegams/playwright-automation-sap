@@ -144,12 +144,13 @@ test('Delete CF:Space Developer Role', async ({ page }) => {
 });
 
 test('Add CF:Role Collections', async ( {page}) => {
-  //CAP CodeJam Tile
+  //Gen AI CodeJam Tile
   //Security >> CodeJamParticipant Role >> Add email ids
 
-  await page.goto('https://emea.cockpit.btp.cloud.sap/cockpit/#/globalaccount/275320f9-4c26-4622-8728-b6f5196075f5/subaccount/13f4f274-4515-4c67-8274-cbde80a4e744/rolecollections');
+  await page.goto('https://emea.cockpit.btp.cloud.sap/cockpit/#/globalaccount/275320f9-4c26-4622-8728-b6f5196075f5/subaccount/a5a420d8-58c6-4820-ab11-90c7145da589/rolecollections');
   await page.locator('button:text("Accept all")').click();
 
+  await page.locator('#__xmlview0--roleCollectionsList-triggerList').click();
   const CodeJamRoleCollectionRow = await page.getByRole('row').filter({ hasText: 'CodeJam' }).locator("td").nth(6);
   await CodeJamRoleCollectionRow.waitFor({ state: 'visible' })
   await CodeJamRoleCollectionRow.click();
@@ -184,7 +185,7 @@ test('Add CF:Role Collections', async ( {page}) => {
       // await dropdownValue.waitFor({ state: 'visible' });
       // await dropdownValue.click();
 
-      await page.locator('table#__xmlview3--rolecollectionsDetailUsersList-listUl tr').nth(1).locator("#__input1-__clone15-inner").fill(line); // Simulate typing
+      await page.locator('table#__xmlview3--rolecollectionsDetailUsersList-listUl tr').nth(1).locator("td").nth(3).locator("input").fill(line); // Simulate typing
       
       const SaveButton = await page.getByRole('button', { name: 'Save' });
       await SaveButton.waitFor({ state: 'visible' });
@@ -321,68 +322,30 @@ test('Create Users from Security > Users', async ( {page}) => {
 
 
 test('Delete Users from Security > Users', async ( {page}) => {
-  await page.goto('https://emea.cockpit.btp.cloud.sap/cockpit/#/globalaccount/275320f9-4c26-4622-8728-b6f5196075f5/subaccount/a5a420d8-58c6-4820-ab11-90c7145da589/usersOverview&//');
+  //CAP CodeJam url
+  await page.goto('https://emea.cockpit.btp.cloud.sap/cockpit/#/globalaccount/275320f9-4c26-4622-8728-b6f5196075f5/subaccount/13f4f274-4515-4c67-8274-cbde80a4e744/usersOverview&//');
+  //Gen AI CodeJam url
+  //await page.goto('https://emea.cockpit.btp.cloud.sap/cockpit/#/globalaccount/275320f9-4c26-4622-8728-b6f5196075f5/subaccount/a5a420d8-58c6-4820-ab11-90c7145da589/usersOverview&//');
   await page.locator('button:text("Accept all")').click();
 
   //Read emails from a file and paste them in the input field
   const filePath = './tests/lib/emails.txt'; // Replace with your file path
   const fileContent = fs.readFileSync(filePath, 'utf-8');
-  console.log(fileContent);
+  //console.log(fileContent);
   const lines = fileContent.split('\n').map(line => line.trim()).filter(line => line.length > 0);
 
-  for (const line of lines) {
-    await page.getByRole("row").filter({hasText: line}).locator('button', {hasText:'Delete user'}).click();
 
+
+  for (const line of lines) {
+    const moreLink = page.locator('#__xmlview1--usersTable-trigger-content');
+    if(await moreLink.isVisible()){
+      await moreLink.click();
+    }
+    await page.getByRole("row").filter({hasText: line}).locator('button', {hasText:'Delete user'}).click();
     //Confirm removal in the pop up dialog
     const RemoveButton = await page.locator(".sapMDialogFooter").getByRole('button', { name: 'Delete' });
     await RemoveButton.waitFor({ state: 'visible' });
     await RemoveButton.click();
+    console.log("Deleted user : " + line);
   }
 });
-
-// test('read CSV file and get items row by row', async () => {
-//   const filePath = './your-file.csv'; // Replace with your CSV file path
-//   const fileContent = fs.readFileSync(filePath, 'utf-8');
-//   const records = parse(fileContent, {
-//     columns: true, // Set to true if your CSV has headers
-//     skip_empty_lines: true
-//   });
-
-//   // Example: log each row
-//   for (const row of records) {
-//     console.log(row);
-//   }
-// });
-
-
-
-  //await new Promise((resolve) => setTimeout(resolve, 3000));
-
-  // page.on('dialog', dialog => dialog.accept());
-  // await page.getByRole('button').click();
-
-  // await page.addLocatorHandler(
-  //   page.getByText('Select a certificate'),
-  //   async() => {
-  //     //await page.getByText('OK').click();
-  //      await page.getByRole('button', { name: 'OK' }).click();
-  //   }   
-  // )
-  
-  
-  // Expect a title "to contain" a substring.
-  //await expect(page).toHaveTitle(/SAP BTP Cockpit/);
-
-  // Click the "CAP CodeJam" tile
-  //await page.location('#').getByText('').click();
-
-  //  await page.addLocatorHandler(
-  //   page.getByTestId('consent_blackbar'),
-  //   async() => {
-  //     //await page.getByTestId('truste-consent-button').click();
-  //     //await page.getByRole('button', { name: 'Accept all' }).click();
-  //     await page.getByRole('button', { name: /Accept all/i }).click();
-  //   }
-  // )
-
-  
