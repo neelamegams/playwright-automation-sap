@@ -31,13 +31,16 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    launchOptions: {
+      args: ['--disable-features=LocalNetworkAccessChecks'], // Disables the feature entirely for this browser
+    }
   },
 
   /* Configure projects for major browsers */
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'], channel: 'chrome'  },
+      use: { ...devices['Desktop Chrome'], headless: false, channel: 'chrome'  },
     },
     {
       name: 'firefox',
@@ -50,7 +53,7 @@ export default defineConfig({
     },
     {
       name: 'Google Chrome',
-      use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+      use: { ...devices['Desktop Chrome'], headless: false, channel: 'chrome' },
     }
 
     /* Test against mobile viewports. */

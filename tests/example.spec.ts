@@ -437,7 +437,7 @@ test('-V2-Delete Users from Security > Users', async ( {page}) => {
   await page.getByRole('button', { name: 'Select multiple users' }).click();
 
   //Click on more link to load all users
-  const moreLink = page.locator('div.sapMGrowingListTrigger');
+  const moreLink = page.locator('#__xmlview1--usersTable-trigger-content');
   await moreLink.waitFor({ state: 'visible' });
   while(await moreLink.isVisible()){
     await moreLink.click();
