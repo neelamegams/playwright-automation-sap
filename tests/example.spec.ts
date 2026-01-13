@@ -9,8 +9,8 @@ test('Add CF:Org Member Role', async ({ page }) => {
   // Go to the SAP BTP Cockpit page - > CF -> Org Members
   await page.goto('https://emea.cockpit.btp.cloud.sap/cockpit/#/globalaccount/275320f9-4c26-4622-8728-b6f5196075f5/subaccount/1684622a-6a26-475a-8948-efdecd3cfc7f/users',  {waitUntil: "domcontentloaded"});
 
-  //Accept all cookies
-  await page.locator('button:text("Accept all")').click();
+  //Deny all cookies
+  await page.locator('#truste-consent-required').click();
 
   //Read emails from a file and paste them in the input field
   const filePath = './tests/lib/emails.txt'; // Replace with your file path
@@ -41,8 +41,8 @@ test('Delete CF:Org Member Role', async ({ page }) => {
   // Go to the SAP BTP Cockpit page - > CF -> Org Members
   await page.goto('https://emea.cockpit.btp.cloud.sap/cockpit/#/globalaccount/275320f9-4c26-4622-8728-b6f5196075f5/subaccount/1684622a-6a26-475a-8948-efdecd3cfc7f/users',  {waitUntil: "domcontentloaded"});
 
-  //Accept all cookies
-  await page.locator('button:text("Accept all")').click();
+  //Deny all cookies
+  await page.locator('#truste-consent-required').click();
 
  //Read emails from a file and paste them in the input field
   const filePath = './tests/lib/emails.txt'; // Replace with your file path
@@ -67,7 +67,7 @@ test('Add CF:Space Developer Role', async ({ page }) => {
   //BuildX Tile
   await page.goto('https://emea.cockpit.btp.cloud.sap/cockpit/#/globalaccount/275320f9-4c26-4622-8728-b6f5196075f5/subaccount/1684622a-6a26-475a-8948-efdecd3cfc7f/users',  {waitUntil: "domcontentloaded"});
 
-  await page.locator('button:text("Accept all")').click();
+  await page.locator('#truste-consent-required').click();
 
   //Read emails from a file and paste them in the input field
   const filePath = './tests/lib/emails.txt'; // Replace with your file path
@@ -106,7 +106,7 @@ test('Delete CF:Space Developer Role', async ({ page }) => {
   //BuildX Tile
   await page.goto('https://emea.cockpit.btp.cloud.sap/cockpit/#/globalaccount/275320f9-4c26-4622-8728-b6f5196075f5/subaccount/1684622a-6a26-475a-8948-efdecd3cfc7f/users',  {waitUntil: "domcontentloaded"});
 
-  await page.locator('button:text("Accept all")').click();
+  await page.locator('#truste-consent-required').click();
 
 
   //Cloud Foundry >> Spaces >> dev space name >> Space Members >> Add members >> Paste bulk email >> Give Space Developer role
@@ -146,9 +146,7 @@ test('Delete CF:Space Developer Role', async ({ page }) => {
 test('-V2-Add CF: Role Collections', async ( {page}) => {
   //Gen AI CodeJam Tile
   await page.goto('https://emea.cockpit.btp.cloud.sap/cockpit/#/globalaccount/275320f9-4c26-4622-8728-b6f5196075f5/subaccount/a5a420d8-58c6-4820-ab11-90c7145da589/rolecollections');
-  await page.locator('button:text("Accept all")').click();
-
-  //await page.locator('#__xmlview0--roleCollectionsList-triggerList').click();
+  await page.locator('#truste-consent-required').click();
 
   //Click on the More button to load more role collections
   const growingListTrigger = page.locator('div.sapMGrowingListTrigger');    
@@ -228,7 +226,7 @@ test('Add CF:Role Collections', async ( {page}) => {
   //Security >> CodeJamParticipant Role >> Add email ids
 
   await page.goto('https://emea.cockpit.btp.cloud.sap/cockpit/#/globalaccount/275320f9-4c26-4622-8728-b6f5196075f5/subaccount/a5a420d8-58c6-4820-ab11-90c7145da589/rolecollections');
-  await page.locator('button:text("Accept all")').click();
+  await page.locator('#truste-consent-required').click();
 
   await page.locator('#__xmlview0--roleCollectionsList-triggerList').click();
   const CodeJamRoleCollectionRow = await page.getByRole('row').filter({ hasText: 'CodeJam' }).locator("td").nth(6);
@@ -303,7 +301,7 @@ test('Delete CF:Role Collections', async ( {page}) => {
   //Security >> CodeJamParticipant Role >> Add email ids
   //Gen AI CodeJam Tile
   await page.goto('https://emea.cockpit.btp.cloud.sap/cockpit/#/globalaccount/275320f9-4c26-4622-8728-b6f5196075f5/subaccount/a5a420d8-58c6-4820-ab11-90c7145da589/rolecollections');
-  await page.locator('button:text("Accept all")').click();
+  await page.locator('#truste-consent-required').click();
 
   const CodeJamRoleCollectionRow = await page.getByRole('row').filter({ hasText: 'CodeJam' }).locator('#__item9-__clone4-TypeCell')
   await CodeJamRoleCollectionRow.waitFor({ state: 'visible' })
@@ -346,7 +344,7 @@ test('Delete CF:Role Collections', async ( {page}) => {
 test('Create Users from Security > Users', async ( {page}) => {
   await page.goto('https://emea.cockpit.btp.cloud.sap/cockpit/#/globalaccount/275320f9-4c26-4622-8728-b6f5196075f5/subaccount/a5a420d8-58c6-4820-ab11-90c7145da589/usersOverview&//');
 
-  await page.locator('button:text("Accept all")').click();
+  await page.locator('#truste-consent-required').click();
   
   //Read emails from a file and paste them in the input field
   const filePath = './tests/lib/emails.txt'; // Replace with your file path
@@ -398,7 +396,7 @@ test('Delete Users from Security > Users', async ( {page}) => {
   //await page.goto('https://emea.cockpit.btp.cloud.sap/cockpit/#/globalaccount/275320f9-4c26-4622-8728-b6f5196075f5/subaccount/13f4f274-4515-4c67-8274-cbde80a4e744/usersOverview&//');
   //Gen AI CodeJam url
   await page.goto('https://emea.cockpit.btp.cloud.sap/cockpit/#/globalaccount/275320f9-4c26-4622-8728-b6f5196075f5/subaccount/a5a420d8-58c6-4820-ab11-90c7145da589/usersOverview&//');
-  await page.locator('button:text("Accept all")').click();
+  await page.locator('#truste-consent-required').click();
 
   //Read emails from a file and paste them in the input field
   const filePath = './tests/lib/emails.txt'; // Replace with your file path
@@ -426,7 +424,7 @@ test('-V2-Delete Users from Security > Users', async ( {page}) => {
   //await page.goto('https://emea.cockpit.btp.cloud.sap/cockpit/#/globalaccount/275320f9-4c26-4622-8728-b6f5196075f5/subaccount/13f4f274-4515-4c67-8274-cbde80a4e744/usersOverview&//');
   //Gen AI CodeJam url
   await page.goto('https://emea.cockpit.btp.cloud.sap/cockpit/#/globalaccount/275320f9-4c26-4622-8728-b6f5196075f5/subaccount/a5a420d8-58c6-4820-ab11-90c7145da589/usersOverview&//');
-  await page.locator('button:text("Accept all")').click();
+  await page.locator('#truste-consent-required').click();
 
   //Read emails from a file and paste them in the input field
   const filePath = './tests/lib/emails.txt'; // Replace with your file path

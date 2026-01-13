@@ -1,0 +1,15 @@
+<plist version="1.0">
+<dict>
+  <key>AutoSelectCertificateForUrls</key>
+   <array>
+     <string>{"pattern":"[*.]cloud.sap","filter":{"ISSUER":{"CN":"SAP SSO CA G2"}}}</string>
+     <string>{"pattern":"[*.]cloud.sap","filter":{"ISSUER":{"CN”:”SSO_CA”}}}</string>   
+     <string>{"pattern":"[*.]sap.corp","filter":{"ISSUER":{"CN":"SAP SSO CA G2"}}}</string>
+     <string>{"pattern":"[*.]sap.com","filter":{"ISSUER":{"CN":"SAP SSO CA G2"}}}</string>
+     <string>{"pattern":"[*.]sap-ag.de","filter":{"ISSUER":{"CN":"SAP SSO CA G2"}}}</string>
+     <string>{"pattern":"[*.]sap.corp","filter":{"ISSUER":{"CN":"SSO_CA"}}}</string>
+     <string>{"pattern":"[*.]sap.com","filter":{"ISSUER":{"CN":"SSO_CA"}}}</string>
+     <string>{"pattern":"[*.]sap-ag.de","filter":{"ISSUER":{"CN":"SSO_CA"}}}</string>
+   </array>
+</dict>
+</plist>
