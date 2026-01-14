@@ -8,7 +8,7 @@
 5. Click on the refresh icon to see the tests folder
 6. Expand the test folder to see "example.spec.ts"
 7. Add the participants email one in each line in the emails.txt within the tests/lib folder
-8. Run the relevant tests for eg: "-V2-Add CF: Role Collections" test to add participants email to the GenAI Sub Account CodeJam role collections by click on the "play" icon next to each test
+8. Run the relevant tests for eg: "-V2-Add CF: Role Collections" test to add participants email to the GenAI Sub Account CodeJam role collections by clicking on the "play" icon next to each test
 9. If the tests timeout, check the console and restart the test again
 
 [▶️ Watch the walkthrough video of the test execution](https://video.sap.com/media/t/1_bdjcnmix)
