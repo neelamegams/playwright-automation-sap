@@ -144,6 +144,8 @@ test('Delete CF:Space Developer Role', async ({ page }) => {
 });
 
 test('-V2-Add CF: Role Collections', async ( {page}) => {
+  //https://stackoverflow.com/questions/69456136/playwright-script-timing-out-when-looping-through-elements
+  test.setTimeout(0);
   //Gen AI CodeJam Tile
   await page.goto('https://emea.cockpit.btp.cloud.sap/cockpit/#/globalaccount/275320f9-4c26-4622-8728-b6f5196075f5/subaccount/a5a420d8-58c6-4820-ab11-90c7145da589/rolecollections');
   await page.locator('#truste-consent-required').click();
