@@ -1,3 +1,19 @@
+
+## Steps to run
+
+1. Install 'Playwright test for VSCode' extension on VS Code
+2. Clone this repo 'playwright-automation-sap' and open in VS Code
+3. From the View -> Command palette in VS Code, 'install playwright'
+4. After installation is complete as seen from the Terminal, Click on the 'Testing' Icon
+5. Click on the refresh icon to see the tests folder
+6. Expand the test folder to see "example.spec.ts"
+7. Add the participants email one in each line in the emails.txt within the tests/lib folder
+8. Run the relevant tests for eg: "-V2-Add CF: Role Collections" test to add participants email to the GenAI Sub Account CodeJam role collections
+9. If the tests timeout, check the console and restart the test again
+
+
+-----Not required to be done as the playwright scripts were running without this configuration settings---
+
 ## Run on terminal
 
 ```bash
