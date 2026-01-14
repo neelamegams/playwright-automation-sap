@@ -12,6 +12,8 @@
 8. Run the relevant tests for eg: "-V2-Add CF: Role Collections" test to add participants email to the GenAI Sub Account CodeJam role collections by click on the "play" icon next to each test
 9. If the tests timeout, check the console and restart the test again
 
+[▶️ Watch the walkthrough video](https://video.sap.com/media/t/1_bdjcnmix)
+
 Note: Currently about 6 - 8 emails are being processed by the script, will look for a solution to make it more stable with less timeouts. So in this case, the script needs to be run again for the unprocessed emails.
 
 ## ** The below configuration is no longer required on the local machine. **
