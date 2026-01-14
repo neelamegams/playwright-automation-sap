@@ -17,7 +17,7 @@
 Note: 
 
 1. These tests can be run in any sub account, just change the url within the relevant tests. The demo video shows it running in the GenAI CodeJam sub account
-2. Currently about 6 - 8 emails are being processed by the script after which it times out, will look for a solution to make it more stable with less timeouts. So in this case, the script needs to be run again for the unprocessed emails
+2. Currently about 6 - 8 emails are being processed by the script after which it times out. In this case, the script needs to be run again for the unprocessed emails. A Playwright script timing out within a loop is typically caused by the total execution time of the loop exceeding the default 30-second test timeout. Within 30 seconds, its only able to execute 6-8 users typically. hence it is throwing the error. The solution is to increase the timeout to accomodate creation of more users.
 
 ## ** The below configuration is no longer required on the local machine. **
 
