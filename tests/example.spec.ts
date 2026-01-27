@@ -439,17 +439,21 @@ test('-V2-Delete Users from Security > Users', async ( {page}) => {
   await page.getByRole('button', { name: 'Select multiple users' }).click();
 
   //Click on more link to load all users
-  const moreLink = page.locator('#__xmlview1--usersTable-trigger-content');
+  const moreLink = page.locator('#__xmlview1--usersTable-trigger');
   await moreLink.waitFor({ state: 'visible' });
-  while(await moreLink.isVisible()){
+
+  const maxClicks = 20; // safety limit
+  for (let i = 0; i < maxClicks; i++) {
+    if (!(await moreLink.isVisible())) break;
     await moreLink.click();
+    await page.waitForTimeout(500); // wait for UI to update
   }
 
   for (const line of lines) {
     const userRow = page.getByRole("row").filter({hasText: line});
     if(await userRow.isVisible()){
       const checkbox = userRow.getByRole('checkbox');
-      await checkbox.check();
+      await checkbox.click();
       console.log("Selected user : " + line);
       countDeletedUsers++;
     }
